@@ -12,6 +12,7 @@ wallet({ bws, mnemonic })
 
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(express.static('public'));
 
     app.get('/:address/:amount', (req, res) => {
       const amount = Number(req.params.amount);
