@@ -56,9 +56,9 @@ wallet({ bws, mnemonic })
           document.getElementById('apple-pay-button').style.display = 'block';
         }
       });
-      function beginApplePay() {
+      function beginApplePay(e) {
         var paymentRequest = {
-          countryCode: 'UK',
+          countryCode: 'GB',
           currencyCode: 'GBP',
           total: {
             label: 'topup.scottcoin.chrisprice.io',
@@ -77,8 +77,10 @@ wallet({ bws, mnemonic })
           }
         );
         session.begin();
+        e.preventDefault();
       }
-      document.getElementById('apple-pay-button').addEventListener('click', beginApplePay);
+      document.getElementById('apple-pay-button')
+        .addEventListener('click', beginApplePay);
     </script>
   </form>
 </body>
