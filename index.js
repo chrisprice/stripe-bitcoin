@@ -109,7 +109,7 @@ wallet({ bws, mnemonic })
 </html>`);
     });
 
-    app.post('/:address/:amount', (req, res) => {
+    app.post('(/applepay)?/:address/:amount', (req, res) => {
 
       const { address, amount } = req.params;
 
