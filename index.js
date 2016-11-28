@@ -85,7 +85,7 @@ wallet({ bws, mnemonic })
             label: 'Scottcoin Topup',
             amount: '${(amount / 100).toFixed(2)}'
           },
-          requiredShippingContactFields: ['name', 'email']
+          requiredShippingContactFields: ['email']
         };
         var session = Stripe.applePay.buildSession(paymentRequest,
           function(result, completion) {
