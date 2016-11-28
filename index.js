@@ -19,6 +19,9 @@ wallet({ bws, mnemonic })
       res.send(`
 <!doctype html>
 <html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
 <body>
   <form action="" method="POST">
     <script
@@ -31,9 +34,36 @@ wallet({ bws, mnemonic })
       data-bitcoin="true">
     </script>
   </form>
+</body>
+</html>`);
+    });
+
+    app.get('/applepay/:address/:amount', (req, res) => {
+      const amount = Number(req.params.amount);
+      res.send(`
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
   <form id="apple-pay-form" action="" method="POST">
     <input type="hidden" name="stripeToken"/>
     <style>
+      body {
+        overflow: hidden;
+      }
+      p {
+        animation: scroll 5s linear infinite;
+      }
+      @keyframes scroll {
+        0% {
+          transform:translate(110%, 0);
+        }
+        100% {
+          transform:translate(-110%, 0);
+        }
+      }
       #apple-pay-button {
         display: none;
         background-color: black;
@@ -47,6 +77,8 @@ wallet({ bws, mnemonic })
         border-radius: 10px;
       }
     </style>
+    <h1>Topup your Scottcoin balance</h1>
+    <p><small>Powered By Scottcoin</small></p>
     <button id="apple-pay-button"></button>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
@@ -61,9 +93,10 @@ wallet({ bws, mnemonic })
           countryCode: 'GB',
           currencyCode: 'GBP',
           total: {
-            label: 'topup.scottcoin.chrisprice.io',
+            label: 'Scottcoin Topup',
             amount: '${(amount / 100).toFixed(2)}'
-          }
+          },
+          requiredShippingContactFields: ['name', 'email']
         };
         var session = Stripe.applePay.buildSession(paymentRequest,
           function(result, completion) {
