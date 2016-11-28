@@ -53,17 +53,6 @@ wallet({ bws, mnemonic })
       body {
         overflow: hidden;
       }
-      p {
-        animation: scroll 5s linear infinite;
-      }
-      @keyframes scroll {
-        0% {
-          transform:translate(110%, 0);
-        }
-        100% {
-          transform:translate(-110%, 0);
-        }
-      }
       #apple-pay-button {
         display: none;
         background-color: black;
@@ -78,7 +67,7 @@ wallet({ bws, mnemonic })
       }
     </style>
     <h1>Topup your Scottcoin balance</h1>
-    <p><small>Powered By Scottcoin</small></p>
+    <p>Add funds to your Scottcoin balance using Apple Pay. The standard £0.20 + 1.4% transaction fee applies as with all card transactions.</p>
     <button id="apple-pay-button"></button>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
