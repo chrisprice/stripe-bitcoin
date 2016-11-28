@@ -14,6 +14,7 @@ wallet({ bws, mnemonic })
     app.use(bodyParser.urlencoded({ extended: false }));
 
     app.get('/:address/:amount', (req, res) => {
+      const amount = Number(req.params.amount);
       res.send(`
 <!doctype html>
 <html>
@@ -22,7 +23,7 @@ wallet({ bws, mnemonic })
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="${publishableKey}"
-      data-amount="${req.params.amount}"
+      data-amount="${amount}"
       data-name="Tuckshop"
       data-description="Topup"
       data-currency="gbp"
