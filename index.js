@@ -50,9 +50,6 @@ wallet({ bws, mnemonic })
   <form id="apple-pay-form" action="" method="POST">
     <input type="hidden" name="stripeToken"/>
     <style>
-      body {
-        overflow: hidden;
-      }
       #apple-pay-button {
         display: none;
         background-color: black;
@@ -66,8 +63,8 @@ wallet({ bws, mnemonic })
         border-radius: 10px;
       }
     </style>
-    <h1>Topup your Scottcoin balance</h1>
-    <p>Add funds to your Scottcoin balance using Apple Pay. The standard £0.20 + 1.4% transaction fee applies as with all card transactions.</p>
+    <h1>Buy a Mars Bar</h1>
+    <p>You know you want to!</p>
     <button id="apple-pay-button"></button>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
@@ -82,7 +79,7 @@ wallet({ bws, mnemonic })
           countryCode: 'GB',
           currencyCode: 'GBP',
           total: {
-            label: 'Scottcoin Topup',
+            label: 'Mars Bar',
             amount: '${(amount / 100).toFixed(2)}'
           },
           requiredShippingContactFields: ['email']
@@ -113,21 +110,31 @@ wallet({ bws, mnemonic })
 
       const { address, amount } = req.params;
 
-      stripe({ secretKey })
-        .createTransaction({ address, amount, source: req.body.stripeToken })
-        .then((transaction) => {
-          console.log(`Sending ${transaction.amount} to ${transaction.address} (${transaction.message})`);
-          return send(transaction)
-            .then(() => transaction);
-        })
-        .then((transaction) => {
-          console.log(`Sent ${transaction.amount} to ${transaction.address} (${transaction.message})`);
-          res.sendStatus(200);
-        })
-        .catch((e) => {
-          console.error(e);
-          res.sendStatus(500);
-        });
+      // stripe({ secretKey })
+      //   .createTransaction({ address, amount, source: req.body.stripeToken })
+      //   .then((transaction) => {
+      //     console.log(`Sending ${transaction.amount} to ${transaction.address} (${transaction.message})`);
+      //     return send(transaction)
+      //       .then(() => transaction);
+      //   })
+      //   .then((transaction) => {
+      //     console.log(`Sent ${transaction.amount} to ${transaction.address} (${transaction.message})`);
+      res.send(`
+        <!doctype html>
+        <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        </head>
+        <body>
+          <h1>You totally just bought a Mars Bar!</h1>
+          <p>Thanks for your custom!</p>
+        </body>
+        </html>`);
+    //     })
+    //     .catch((e) => {
+    //       console.error(e);
+    //       res.sendStatus(500);
+    //     });
     });
 
     app.listen(3000, () => console.log('Listening on port 3000'));
