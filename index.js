@@ -79,7 +79,7 @@ wallet({ bws, mnemonic })
           countryCode: 'GB',
           currencyCode: 'GBP',
           total: {
-            label: 'Mars Bar',
+            label: 'Shop',
             amount: '${(amount / 100).toFixed(2)}'
           },
           requiredShippingContactFields: ['email']
